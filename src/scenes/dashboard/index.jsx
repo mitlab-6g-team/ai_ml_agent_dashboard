@@ -1,18 +1,6 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
-import { tokens } from "../../theme";
-// import { mockTransactions } from "../../data/mockData";
-// import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-// import EmailIcon from "@mui/icons-material/Email";
-// import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-// import PersonAddIcon from "@mui/icons-material/PersonAdd";
-// import TrafficIcon from "@mui/icons-material/Traffic";
+import { Box, Typography } from "@mui/material";
+// import { tokens } from "../../theme";
 import Header from "../../components/Header";
-// import LineChart from "../../components/LineChart";
-// import GeographyChart from "../../components/GeographyChart";
-// import BarChart from "../../components/BarChart";
-// import StatBox from "../../components/StatBox";
-// import ProgressCircle from "../../components/ProgressCircle";
-// import Box from '@mui/material/Box';
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
@@ -37,10 +25,9 @@ const fakeData = [
     application_description: "Description for Application 2",
     application_name: "Application 2",
   },
-  // 新增加的10筆資料
   ...Array.from({ length: 10 }).map((_, index) => ({
-    application_uid: `UID${index + 457}`, // 從UID457開始遞增
-    application_created_time: `2023-${String(index + 3).padStart(2, '0')}-01T00:00:00Z`, // 從2023年3月開始，每筆資料月份遞增
+    application_uid: `UID${index + 457}`, 
+    application_created_time: `2023-${String(index + 3).padStart(2, '0')}-01T00:00:00Z`,
     application_description: `Description for Application ${index + 3}`,
     application_name: `Application ${index + 3}`,
   })),
@@ -48,13 +35,13 @@ const fakeData = [
 
 const transformedData = {
   result: {
-    register: fakeData.slice(0, 6), // 假設前6筆資料為已註冊
-    unregister: fakeData.slice(6, 12), // 剩餘的為未註冊
+    register: fakeData.slice(0, 6), 
+    unregister: fakeData.slice(6, 12), 
   },
 };
 const Dashboard = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  // const theme = useTheme();
+  // const colors = tokens(theme.palette.mode);
   const registeredApps = transformedData.result.register.slice(0, 5);
   const unregisteredApps = transformedData.result.unregister.slice(0, 5);
   return (
