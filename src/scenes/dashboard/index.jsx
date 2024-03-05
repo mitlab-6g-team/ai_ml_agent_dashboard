@@ -37,11 +37,26 @@ const fakeData = [
     application_description: "Description for Application 2",
     application_name: "Application 2",
   },
+  // 新增加的10筆資料
+  ...Array.from({ length: 10 }).map((_, index) => ({
+    application_uid: `UID${index + 457}`, // 從UID457開始遞增
+    application_created_time: `2023-${String(index + 3).padStart(2, '0')}-01T00:00:00Z`, // 從2023年3月開始，每筆資料月份遞增
+    application_description: `Description for Application ${index + 3}`,
+    application_name: `Application ${index + 3}`,
+  })),
 ];
+
+const transformedData = {
+  result: {
+    register: fakeData.slice(0, 6), // 假設前6筆資料為已註冊
+    unregister: fakeData.slice(6, 12), // 剩餘的為未註冊
+  },
+};
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
+  const registeredApps = transformedData.result.register.slice(0, 5);
+  const unregisteredApps = transformedData.result.unregister.slice(0, 5);
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -56,10 +71,23 @@ const Dashboard = () => {
           </Stepper>
         </Box>
       </Box>
-      <Box>
-        {fakeData.map((app, index) => (
+              <Typography variant="h6" color="primary" gutterBottom>
+          Registered Applications
+        </Typography>
+      <Box mt={2} sx={{ minHeight: '200px', maxHeight: '300px', overflowY: 'auto' }}>
+
+        {registeredApps.length > 0 ? registeredApps.map((app, index) => (
           <ApplicationItem key={index} app={app} />
-        ))}
+        )) : <Typography>No registered applications</Typography>}
+      </Box>
+      <Typography variant="h6" color="primary" gutterBottom sx={{mt:2}}>
+          Unregistered Applications
+      </Typography>
+      <Box mt={2} sx={{ minHeight: '200px', maxHeight: '300px', overflowY: 'auto' }}>
+
+        {unregisteredApps.length > 0 ? unregisteredApps.map((app, index) => (
+          <ApplicationItem key={index} app={app} />
+        )) : <Typography>No unregistered applications</Typography>}
       </Box>
     </Box>
   );
