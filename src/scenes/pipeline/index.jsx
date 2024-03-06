@@ -1,47 +1,29 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
-import { tokens } from "../../theme";
-// import { mockTransactions } from "../../data/mockData";
-// import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-// import EmailIcon from "@mui/icons-material/Email";
-// import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-// import PersonAddIcon from "@mui/icons-material/PersonAdd";
-// import TrafficIcon from "@mui/icons-material/Traffic";
+import { Box, Typography } from "@mui/material";
 import Header from "../../components/Header";
-// import LineChart from "../../components/LineChart";
-// import GeographyChart from "../../components/GeographyChart";
-// import BarChart from "../../components/BarChart";
-// import StatBox from "../../components/StatBox";
-// import ProgressCircle from "../../components/ProgressCircle";
-// import Box from '@mui/material/Box';
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import PipelineItem from "../../components/PipelineItem";
-// import Button from '@mui/material/Button';
-// import Typography from '@mui/material/Typography';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPipelines } from "../../redux/pipelinesSlice";
+import CircularIndeterminate from "../../components/LoadingPage";
+import OutlinedAlerts from "../../components/ErrorComponent";
+import { useLocation } from "react-router-dom";
 const steps = [
   "Select an application to choose training pipeline",
   "Select a pipeline to choose model",
   "Deploy Model",
 ];
-const fakeData = [
-  {
-    pipeline_uid: "UID789",
-    pipeline_time: "2023-01-01T00:00:00Z",
-    pipeline_description: "Description for Pipeline 1",
-    pipeline_name: "Pipeline 1",
-  },
-  {
-    pipeline_uid: "UID000",
-    pipeline_created_time: "2023-02-01T00:00:00Z",
-    pipeline_description: "Description for Pipeline 2",
-    pipeline_name: "Pipeline 2",
-  },
-];
-const Dashboard = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
 
+const PipelinePage = () => {
+  const location = useLocation();
+  const { application_uid } = location.state || {};
+  const dispatch = useDispatch();
+  const { result, status } = useSelector((state) => state.pipelines);
+  useEffect(() => {
+    dispatch(fetchPipelines(application_uid));
+  }, []);
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -50,19 +32,41 @@ const Dashboard = () => {
           <Stepper activeStep={1} alternativeLabel>
             {steps.map((label) => (
               <Step key={label}>
-                <StepLabel sx={{color:"blue"}}>{label}</StepLabel>
+                <StepLabel>{label}</StepLabel>
               </Step>
             ))}
           </Stepper>
         </Box>
       </Box>
-      <Box>
-        {fakeData.map((app, index) => (
-          <PipelineItem key={index} app={app} />
-        ))}
-      </Box>
+      {status === "loading" && (
+        <Box display="flex" justifyContent="center" my={4}>
+          <CircularIndeterminate />
+        </Box>
+      )}
+      {status === "failed" && (
+        <Box display="flex" justifyContent="center" my={4}>
+          <OutlinedAlerts />
+        </Box>
+      )}
+      {status === "succeeded" && (
+        <Box>
+          <Typography variant="h6" color="primary" gutterBottom>
+            Select a training pipeline
+          </Typography>
+          <Box
+            mt={2}
+            sx={{ minHeight: "200px", maxHeight: "300px", overflowY: "auto" }}
+          >
+            {result.length > 0 ? (
+              result.map((app, index) => <PipelineItem key={index} app={app} />)
+            ) : (
+              <Typography>No registered applications</Typography>
+            )}
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 };
 
-export default Dashboard;
+export default PipelinePage;

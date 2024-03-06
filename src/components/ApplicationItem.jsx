@@ -5,17 +5,16 @@ import {
   CardActions,
   Button,
   Typography,
-  Box,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 const ApplicationItem = ({ app }) => {
   const [expanded, setExpanded] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const toggleExpand = () => {
     setExpanded(!expanded);
   };
   const handleSelectPipeline = () => {
-    navigate('/pipeline'); // 步驟3：導航到/pipeline頁面
+    navigate("/pipeline", { state: { application_uid: app.application_uid } });
   };
   return (
     <Card variant="outlined" sx={{ mb: 2 }}>
@@ -38,10 +37,10 @@ const ApplicationItem = ({ app }) => {
         )}
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={toggleExpand} color="secondary">
+        <Button size="medium" onClick={toggleExpand} color="secondary">
           {expanded ? "Hide Details" : "Show Details"}
         </Button>
-        <Button size="small" color="secondary" onClick={handleSelectPipeline}>
+        <Button size="medium" color="secondary" onClick={handleSelectPipeline}>
           Select PipeLine
         </Button>
       </CardActions>
