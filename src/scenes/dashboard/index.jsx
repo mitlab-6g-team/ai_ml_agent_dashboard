@@ -64,7 +64,7 @@ const Dashboard = () => {
                 <ApplicationItem key={index} app={app} />
               ))
             ) : (
-              <Typography>No registered applications</Typography>
+              <Typography>No Registered Applications</Typography>
             )}
           </Box>
           <Typography variant="h6" color="primary" gutterBottom sx={{ mt: 2 }}>
@@ -79,7 +79,7 @@ const Dashboard = () => {
                 <ApplicationItem key={index} app={app} />
               ))
             ) : (
-              <Typography>No unregistered applications</Typography>
+              <Typography>No Unregistered Applications</Typography>
             )}
           </Box>
         </Box>

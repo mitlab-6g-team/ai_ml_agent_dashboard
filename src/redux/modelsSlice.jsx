@@ -5,10 +5,10 @@ export const fetchModles = createAsyncThunk(
   "pipelines/fetchmodels",
   async (training_pipeline_Uid, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        process.env.REACT_APP_LIST_PIPELINE_URL,
-        { training_pipeline_uid: training_pipeline_Uid }
-      );
+      const response = await axios.post(process.env.REACT_APP_LIST_MODEL_URL, {
+        training_pipeline_uid: training_pipeline_Uid,
+      });
+      //   console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

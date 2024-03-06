@@ -3,7 +3,7 @@ import Header from "../../components/Header";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import PipelineItem from "../../components/PipelineItem";
+import ModelItem from "../../components/ModelItem";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchModles } from "../../redux/modelsSlice";
@@ -21,7 +21,7 @@ const ModelPage = () => {
   const location = useLocation();
   const { training_pipeline_uid } = location.state || {};
   const dispatch = useDispatch();
-  // const { result, status } = useSelector((state) => state.models);
+  const { result, status } = useSelector((state) => state.models);
   useEffect(() => {
     dispatch(fetchModles(training_pipeline_uid));
   }, []);
@@ -39,7 +39,7 @@ const ModelPage = () => {
           </Stepper>
         </Box>
       </Box>
-      {/* {status === "loading" && (
+      {status === "loading" && (
         <Box display="flex" justifyContent="center" my={4}>
           <CircularIndeterminate />
         </Box>
@@ -52,20 +52,20 @@ const ModelPage = () => {
       {status === "succeeded" && (
         <Box>
           <Typography variant="h6" color="primary" gutterBottom>
-            Select a training pipeline
+            Select a Model to deploy
           </Typography>
           <Box
             mt={2}
             sx={{ minHeight: "200px", maxHeight: "300px", overflowY: "auto" }}
           >
             {result.length > 0 ? (
-              result.map((app, index) => <PipelineItem key={index} app={app} />)
+              result.map((app, index) => <ModelItem key={index} app={app} />)
             ) : (
-              <Typography>No registered applications</Typography>
+              <Typography>No Model to select</Typography>
             )}
           </Box>
         </Box>
-      )} */}
+      )}
     </Box>
   );
 };
