@@ -4,6 +4,7 @@ import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Pipeline from "./scenes/pipeline";
+import Model from "./scenes/model";
 import Team from "./scenes/team";
 import Invoices from "./scenes/invoices";
 import Contacts from "./scenes/contacts";
@@ -26,13 +27,16 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <div className="sidebar"><Sidebar isSidebar={isSidebar} /></div>
+          <div className="sidebar">
+            <Sidebar isSidebar={isSidebar} />
+          </div>
           {/* <Sidebar isSidebar={isSidebar} /> */}
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/pipeline" element={<Pipeline />} />
+              <Route path="/model" element={<Model />} />
               <Route path="/team" element={<Team />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/invoices" element={<Invoices />} />
