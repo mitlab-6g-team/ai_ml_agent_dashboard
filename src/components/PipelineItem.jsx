@@ -15,7 +15,7 @@ const PipelineItem = ({ app }) => {
   };
   const handleSelectPipeline = () => {
     navigate("/model", {
-      state: { application_uid: app.training_pipeline_uid },
+      state: { training_pipeline_uid: app.training_pipeline_uid },
     });
   };
   return (

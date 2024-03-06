@@ -8,31 +8,37 @@ import {
   Box,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-const ApplicationItem = ({ app }) => {
+const ModelItem = ({ app }) => {
   const [expanded, setExpanded] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const toggleExpand = () => {
     setExpanded(!expanded);
   };
   const handleSelectPipeline = () => {
-    navigate('/pipeline'); // 步驟3：導航到/pipeline頁面
+    navigate("/");
   };
   return (
     <Card variant="outlined" sx={{ mb: 2 }}>
       <CardContent>
         <Typography variant="h5" component="div">
-          {app.pipeline_name}
+          {app.model_name}
         </Typography>
         {expanded && (
           <div>
             <Typography color="text.secondary" sx={{ mt: 1 }}>
-              UID: {app.pipeline_uid}
+              UID: {app.model_uid}
             </Typography>
             <Typography color="text.secondary">
-              Created Time: {app.pipeline_created_time}
+              Created Time: {app.model_created_time}
             </Typography>
             <Typography color="text.secondary">
-              Description: {app.pipeline_description}
+              Description: {app.model_description}
+            </Typography>
+            <Typography color="text.secondary">
+              Version: {app.model_version}
+            </Typography>
+            <Typography color="text.secondary">
+              File Extension: {app.model_file_extension}
             </Typography>
           </div>
         )}
@@ -49,4 +55,4 @@ const ApplicationItem = ({ app }) => {
   );
 };
 
-export default ApplicationItem;
+export default ModelItem;

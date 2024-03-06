@@ -60,7 +60,7 @@ const PipelinePage = () => {
             {result.length > 0 ? (
               result.map((app, index) => <PipelineItem key={index} app={app} />)
             ) : (
-              <Typography>No registered applications</Typography>
+              <Typography>No Training Pipeline to select</Typography>
             )}
           </Box>
         </Box>
