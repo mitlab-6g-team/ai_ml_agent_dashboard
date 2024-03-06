@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-// require("dotenv").config();
-// 創建異步 thunk 函數
+
 export const fetchApplications = createAsyncThunk(
   "applications/fetchApplications",
   async () => {
@@ -9,7 +8,6 @@ export const fetchApplications = createAsyncThunk(
       process.env.REACT_APP_LIST_APPLICATION_URL,
       {}
     );
-    // console.log(response);
     return response.data;
   }
 );
@@ -21,7 +19,7 @@ export const applicationsSlice = createSlice({
       register: [],
       unregister: [],
     },
-    status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
+    status: "idle",
     error: null,
   },
   reducers: {},
@@ -32,7 +30,6 @@ export const applicationsSlice = createSlice({
       })
       .addCase(fetchApplications.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // 假設 response 直接是所需的格式
         state.result.register = action.payload.result.register;
         state.result.unregister = action.payload.result.unregister;
       })
@@ -43,5 +40,4 @@ export const applicationsSlice = createSlice({
   },
 });
 
-// 默認導出 reducer
 export default applicationsSlice.reducer;

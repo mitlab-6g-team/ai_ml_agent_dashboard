@@ -21,9 +21,11 @@ const Dashboard = () => {
     result: { register, unregister },
     status,
   } = useSelector((state) => state.applications);
+
   useEffect(() => {
     dispatch(fetchApplications());
-  }, [dispatch]);
+  }, []);
+
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -55,7 +57,7 @@ const Dashboard = () => {
           </Typography>
           <Box
             mt={2}
-            sx={{ minHeight: "200px", maxHeight: "300px", overflowY: "auto" }}
+            sx={{ minHeight: "200px", maxHeight: "400px", overflowY: "auto" }}
           >
             {register.length > 0 ? (
               register.map((app, index) => (
@@ -70,7 +72,7 @@ const Dashboard = () => {
           </Typography>
           <Box
             mt={2}
-            sx={{ minHeight: "200px", maxHeight: "300px", overflowY: "auto" }}
+            sx={{ minHeight: "200px", maxHeight: "400px", overflowY: "auto" }}
           >
             {unregister.length > 0 ? (
               unregister.map((app, index) => (

@@ -5,48 +5,49 @@ import {
   CardActions,
   Button,
   Typography,
-  Box,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-const ApplicationItem = ({ app }) => {
+const PipelineItem = ({ app }) => {
   const [expanded, setExpanded] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const toggleExpand = () => {
     setExpanded(!expanded);
   };
   const handleSelectPipeline = () => {
-    navigate('/pipeline'); // 步驟3：導航到/pipeline頁面
+    navigate("/model", {
+      state: { application_uid: app.training_pipeline_uid },
+    });
   };
   return (
     <Card variant="outlined" sx={{ mb: 2 }}>
       <CardContent>
         <Typography variant="h5" component="div">
-          {app.pipeline_name}
+          {app.training_pipeline_name}
         </Typography>
         {expanded && (
           <div>
             <Typography color="text.secondary" sx={{ mt: 1 }}>
-              UID: {app.pipeline_uid}
+              UID: {app.training_pipeline_uid}
             </Typography>
             <Typography color="text.secondary">
-              Created Time: {app.pipeline_created_time}
+              Created Time: {app.training_pipeline_created_time}
             </Typography>
             <Typography color="text.secondary">
-              Description: {app.pipeline_description}
+              Description: {app.training_pipeline_description}
             </Typography>
           </div>
         )}
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={toggleExpand} color="secondary">
+        <Button size="medium" onClick={toggleExpand} color="secondary">
           {expanded ? "Hide Details" : "Show Details"}
         </Button>
-        <Button size="small" color="secondary" onClick={handleSelectPipeline}>
-          Select PipeLine
+        <Button size="medium" color="secondary" onClick={handleSelectPipeline}>
+          Select Model
         </Button>
       </CardActions>
     </Card>
   );
 };
 
-export default ApplicationItem;
+export default PipelineItem;
