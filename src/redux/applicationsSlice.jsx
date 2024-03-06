@@ -9,7 +9,7 @@ export const fetchApplications = createAsyncThunk(
       process.env.REACT_APP_LIST_APPLICATION_URL,
       {}
     );
-    console.log(response);
+    // console.log(response);
     return response.data;
   }
 );
