@@ -58,7 +58,13 @@ const PipelinePage = () => {
             sx={{ minHeight: "200px", maxHeight: "300px", overflowY: "auto" }}
           >
             {result.length > 0 ? (
-              result.map((app, index) => <PipelineItem key={index} app={app} />)
+              result.map((app, index) => (
+                <PipelineItem
+                  key={index}
+                  app={app}
+                  application_Uid={application_uid}
+                />
+              ))
             ) : (
               <Typography>No Training Pipeline to select</Typography>
             )}

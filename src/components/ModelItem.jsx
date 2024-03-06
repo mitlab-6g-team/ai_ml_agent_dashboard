@@ -8,13 +8,16 @@ import {
   Box,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-const ModelItem = ({ app }) => {
+import { useDispatch, useSelector } from "react-redux";
+const ModelItem = ({ app, application_Uid }) => {
+  const dispatch = useDispatch();
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
   const toggleExpand = () => {
     setExpanded(!expanded);
   };
   const handleSelectPipeline = () => {
+    dispatch();
     navigate("/");
   };
   return (

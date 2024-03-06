@@ -19,7 +19,7 @@ const steps = [
 
 const ModelPage = () => {
   const location = useLocation();
-  const { training_pipeline_uid } = location.state || {};
+  const { application_uid, training_pipeline_uid } = location.state || {};
   const dispatch = useDispatch();
   const { result, status } = useSelector((state) => state.models);
   useEffect(() => {
@@ -59,7 +59,13 @@ const ModelPage = () => {
             sx={{ minHeight: "200px", maxHeight: "300px", overflowY: "auto" }}
           >
             {result.length > 0 ? (
-              result.map((app, index) => <ModelItem key={index} app={app} />)
+              result.map((app, index) => (
+                <ModelItem
+                  key={index}
+                  app={app}
+                  application_Uid={application_uid}
+                />
+              ))
             ) : (
               <Typography>No Model to select</Typography>
             )}

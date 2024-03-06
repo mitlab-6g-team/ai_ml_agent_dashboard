@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchApplications } from "../../redux/applicationsSlice";
 import CircularIndeterminate from "../../components/LoadingPage";
 import OutlinedAlerts from "../../components/ErrorComponent";
+// import { useLocation } from "react-router-dom";
 const steps = [
   "Select an application to choose training pipeline",
   "Select a pipeline to choose model",
@@ -16,6 +17,9 @@ const steps = [
 ];
 
 const Dashboard = () => {
+  // const location = useLocation();
+  // const { application_uid } = location.state || {};
+
   const dispatch = useDispatch();
   const {
     result: { register, unregister },
@@ -24,6 +28,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(fetchApplications());
+    // console.log(application_uid);
   }, []);
 
   return (
@@ -53,7 +58,7 @@ const Dashboard = () => {
       {status === "succeeded" && (
         <Box>
           <Typography variant="h6" color="primary" gutterBottom>
-            Registered Applications
+            Enabled Applications
           </Typography>
           <Box
             mt={2}
@@ -64,11 +69,11 @@ const Dashboard = () => {
                 <ApplicationItem key={index} app={app} />
               ))
             ) : (
-              <Typography>No Registered Applications</Typography>
+              <Typography>No Enabled Applications</Typography>
             )}
           </Box>
           <Typography variant="h6" color="primary" gutterBottom sx={{ mt: 2 }}>
-            Unregistered Applications
+            Disabled Applications
           </Typography>
           <Box
             mt={2}
@@ -79,7 +84,7 @@ const Dashboard = () => {
                 <ApplicationItem key={index} app={app} />
               ))
             ) : (
-              <Typography>No Unregistered Applications</Typography>
+              <Typography>No Disabled Applications</Typography>
             )}
           </Box>
         </Box>
