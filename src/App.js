@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
+import Dashboard1 from "./scenes/dashboard1";
 import Pipeline from "./scenes/pipeline";
 import Model from "./scenes/model";
 import Team from "./scenes/team";
@@ -35,6 +36,7 @@ function App() {
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/result" element={<Dashboard1 />} />
               <Route path="/pipeline" element={<Pipeline />} />
               <Route path="/model" element={<Model />} />
               <Route path="/team" element={<Team />} />

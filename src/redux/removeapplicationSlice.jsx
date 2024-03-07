@@ -3,20 +3,19 @@ import axios from "axios";
 
 export const fetchRemoveApplciation = createAsyncThunk(
   "remove/fetchRemoveApplciation",
-  async ({ application_Uid }, { rejectWithValue }) => {
+  async (application_Uid, { rejectWithValue }) => {
     try {
+      console.log(application_Uid);
       const response = await axios.post(
         process.env.REACT_APP_REMOVE_APPLICATION_URL,
-        { application_uid: application_Uid }
+        { application_uid: application_Uid.application_Uid }
       );
 
       return { ...response.data, application_Uid };
     } catch (error) {
-
       if (error.response && error.response.data) {
         return rejectWithValue(error.response.data);
       } else {
-
         return rejectWithValue(error.message || "An unexpected error occurred");
       }
     }

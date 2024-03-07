@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import LinearProgress from "@mui/material/LinearProgress";
 import { fetchRemoveApplciation } from "../redux/removeapplicationSlice";
 import { useDispatch } from "react-redux";
-
+import { fetchApplications } from "../redux/applicationsSlice";
 const ApplicationItem = ({
   app,
   deployStatus,
@@ -31,19 +31,19 @@ const ApplicationItem = ({
     navigate("/pipeline", { state: { application_uid: app.application_uid } });
   };
   const handleRemoveDeployment = () => {
-    dispatch(fetchRemoveApplciation({ applicationUid: app.application_uid }));
+    dispatch(fetchRemoveApplciation({ application_Uid: app.application_uid }));
+    // dispatch(fetchApplications());
+    navigate("/result");
   };
   useEffect(() => {
     const isDeploying =
       deployStatus === "loading" && processApp === app.application_uid;
-    setLoading(isDeploying);
-  }, [deployStatus, processApp, app.application_uid]);
-
-  useEffect(() => {
     const isRemoving =
       removeStatus === "loading" && removeApp === app.application_uid;
-    setLoading(isRemoving);
-  }, [removeStatus, removeApp, app.application_uid]);
+
+    // 將loading設置為true，如果任一操作正在進行
+    setLoading(isDeploying || isRemoving);
+  }, [deployStatus, processApp, removeStatus, removeApp]);
   return (
     <Card variant="outlined" sx={{ mb: 2, position: "relative" }}>
       <CardContent>
