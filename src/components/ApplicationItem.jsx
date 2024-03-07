@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import {
+  Box,
   Card,
   CardContent,
   CardActions,
   Button,
+  Backdrop,
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-const ApplicationItem = ({ app }) => {
+import LinearProgress from "@mui/material/LinearProgress";
+
+const ApplicationItem = ({ app, loading }) => {
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
   const toggleExpand = () => {
@@ -17,7 +21,7 @@ const ApplicationItem = ({ app }) => {
     navigate("/pipeline", { state: { application_uid: app.application_uid } });
   };
   return (
-    <Card variant="outlined" sx={{ mb: 2 }}>
+    <Card variant="outlined" sx={{ mb: 2, position: "relative" }}>
       <CardContent>
         <Typography variant="h5" component="div">
           {app.application_name}
@@ -44,6 +48,21 @@ const ApplicationItem = ({ app }) => {
           Select PipeLine
         </Button>
       </CardActions>
+      <Backdrop
+        sx={{
+          color: "#fff",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+        }}
+        open={loading}
+      >
+        <Box sx={{ width: "80%" }}>
+          <LinearProgress color="secondary" />
+        </Box>
+      </Backdrop>
     </Card>
   );
 };

@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchDeployApplciation } from "../redux/registapplicationSlice";
 const ModelItem = ({ app, application_Uid }) => {
   const dispatch = useDispatch();
   const [expanded, setExpanded] = useState(false);
@@ -16,8 +17,10 @@ const ModelItem = ({ app, application_Uid }) => {
   const toggleExpand = () => {
     setExpanded(!expanded);
   };
-  const handleSelectPipeline = () => {
-    dispatch();
+  const handleSelectModel = () => {
+    dispatch(
+      fetchDeployApplciation({ application_Uid, model_Uid: app.model_uid })
+    );
     navigate("/");
   };
   return (
@@ -50,7 +53,7 @@ const ModelItem = ({ app, application_Uid }) => {
         <Button size="small" onClick={toggleExpand} color="secondary">
           {expanded ? "Hide Details" : "Show Details"}
         </Button>
-        <Button size="small" color="secondary" onClick={handleSelectPipeline}>
+        <Button size="small" color="secondary" onClick={handleSelectModel}>
           Deploy Model
         </Button>
       </CardActions>

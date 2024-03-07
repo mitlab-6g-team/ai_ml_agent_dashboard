@@ -25,6 +25,10 @@ const Dashboard = () => {
     result: { register, unregister },
     status,
   } = useSelector((state) => state.applications);
+  const { deploy_result, deploy_status, process_app } = useSelector(
+    (state) => state.deployapp
+  );
+  console.log({ deploy_result, deploy_status, process_app });
 
   useEffect(() => {
     dispatch(fetchApplications());
@@ -66,7 +70,14 @@ const Dashboard = () => {
           >
             {register.length > 0 ? (
               register.map((app, index) => (
-                <ApplicationItem key={index} app={app} />
+                <ApplicationItem
+                  key={index}
+                  app={app}
+                  loading={
+                    deploy_status === "loading" &&
+                    process_app.data === app.application_uid
+                  }
+                />
               ))
             ) : (
               <Typography>No Enabled Applications</Typography>
