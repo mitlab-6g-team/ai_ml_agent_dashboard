@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Card,
@@ -10,9 +10,19 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import LinearProgress from "@mui/material/LinearProgress";
+import { fetchRemoveApplciation } from "../redux/removeapplicationSlice";
+import { useDispatch } from "react-redux";
 
-const ApplicationItem = ({ app, loading }) => {
+const ApplicationItem = ({
+  app,
+  deployStatus,
+  processApp,
+  removeStatus,
+  removeApp,
+}) => {
+  const dispatch = useDispatch();
   const [expanded, setExpanded] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const toggleExpand = () => {
     setExpanded(!expanded);
@@ -20,6 +30,20 @@ const ApplicationItem = ({ app, loading }) => {
   const handleSelectPipeline = () => {
     navigate("/pipeline", { state: { application_uid: app.application_uid } });
   };
+  const handleRemoveDeployment = () => {
+    dispatch(fetchRemoveApplciation({ applicationUid: app.application_uid }));
+  };
+  useEffect(() => {
+    const isDeploying =
+      deployStatus === "loading" && processApp === app.application_uid;
+    setLoading(isDeploying);
+  }, [deployStatus, processApp, app.application_uid]);
+
+  useEffect(() => {
+    const isRemoving =
+      removeStatus === "loading" && removeApp === app.application_uid;
+    setLoading(isRemoving);
+  }, [removeStatus, removeApp, app.application_uid]);
   return (
     <Card variant="outlined" sx={{ mb: 2, position: "relative" }}>
       <CardContent>
@@ -46,6 +70,9 @@ const ApplicationItem = ({ app, loading }) => {
         </Button>
         <Button size="medium" color="secondary" onClick={handleSelectPipeline}>
           Select PipeLine
+        </Button>
+        <Button size="medium" color="error" onClick={handleRemoveDeployment}>
+          Remove Deployment
         </Button>
       </CardActions>
       <Backdrop

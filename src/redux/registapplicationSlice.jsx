@@ -29,7 +29,7 @@ export const deployAppSlice = createSlice({
     builder
       .addCase(fetchDeployApplciation.pending, (state, action) => {
         state.deploy_status = "loading";
-        state.process_app = action.payload.application_Uid;
+        state.process_app = action.meta.arg.application_Uid;
       })
       .addCase(fetchDeployApplciation.fulfilled, (state, action) => {
         state.deploy_status = "succeeded";

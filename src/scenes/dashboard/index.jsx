@@ -28,11 +28,13 @@ const Dashboard = () => {
   const { deploy_result, deploy_status, process_app } = useSelector(
     (state) => state.deployapp
   );
-  console.log({ deploy_result, deploy_status, process_app });
 
+  const { remove_result, remove_status, remove_app } = useSelector(
+    (state) => state.removeapp
+  );
+  console.log({ remove_result, remove_status, remove_app });
   useEffect(() => {
     dispatch(fetchApplications());
-    // console.log(application_uid);
   }, []);
 
   return (
@@ -73,10 +75,10 @@ const Dashboard = () => {
                 <ApplicationItem
                   key={index}
                   app={app}
-                  loading={
-                    deploy_status === "loading" &&
-                    process_app.data === app.application_uid
-                  }
+                  deployStatus={deploy_status}
+                  removeStatus={remove_status}
+                  processApp={process_app}
+                  removeApp={remove_app}
                 />
               ))
             ) : (
@@ -92,7 +94,14 @@ const Dashboard = () => {
           >
             {unregister.length > 0 ? (
               unregister.map((app, index) => (
-                <ApplicationItem key={index} app={app} />
+                <ApplicationItem
+                  key={index}
+                  app={app}
+                  deployStatus={deploy_status}
+                  removeStatus={remove_status}
+                  processApp={process_app}
+                  removeApp={remove_app}
+                />
               ))
             ) : (
               <Typography>No Disabled Applications</Typography>
