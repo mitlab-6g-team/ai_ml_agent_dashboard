@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-const PipelineItem = ({ app }) => {
+const PipelineItem = ({ app, application_Uid }) => {
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
   const toggleExpand = () => {
@@ -15,7 +15,10 @@ const PipelineItem = ({ app }) => {
   };
   const handleSelectPipeline = () => {
     navigate("/model", {
-      state: { training_pipeline_uid: app.training_pipeline_uid },
+      state: {
+        training_pipeline_uid: app.training_pipeline_uid,
+        application_uid: application_Uid,
+      },
     });
   };
   return (

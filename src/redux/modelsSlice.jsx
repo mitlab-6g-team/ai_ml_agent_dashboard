@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchModles = createAsyncThunk(
-  "pipelines/fetchmodels",
+  "models/fetchmodels",
   async (training_pipeline_Uid, { rejectWithValue }) => {
     try {
       const response = await axios.post(process.env.REACT_APP_LIST_MODEL_URL, {
