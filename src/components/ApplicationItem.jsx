@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import LinearProgress from "@mui/material/LinearProgress";
 import { fetchRemoveApplciation } from "../redux/removeapplicationSlice";
 import { useDispatch } from "react-redux";
-import { fetchApplications } from "../redux/applicationsSlice";
+// import { fetchApplications } from "../redux/applicationsSlice";
 const ApplicationItem = ({
   app,
   deployStatus,

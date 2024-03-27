@@ -16,7 +16,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-
+import { ReactComponent as MitlabLogo } from "../../img/mitlab_logo_black 4.svg";
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -64,10 +64,9 @@ const Sidebar = () => {
     >
       <ProSidebar collapsed={isCollapsed}>
         <Menu iconShape="square">
-          {/* LOGO AND MENU ICON */}
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
-            icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
+            icon={isCollapsed ? <MitlabLogo /> : undefined}
             style={{
               margin: "10px 0 20px 0",
               color: colors.grey[100],
@@ -78,13 +77,13 @@ const Sidebar = () => {
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                ml="15px"
+                ml="80px"
               >
-                <Typography variant="h3" color={colors.grey[100]}>
+                {/* <Typography variant="h3" color={colors.grey[100]}>
                   AI/ML Agent
-                </Typography>
+                </Typography> */}
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                  <MenuOutlinedIcon />
+                  <MitlabLogo style={{ width: 50, height: 50 }} />
                 </IconButton>
               </Box>
             )}
@@ -92,26 +91,17 @@ const Sidebar = () => {
 
           {!isCollapsed && (
             <Box mb="25px">
-              {/* <Box display="flex" justifyContent="center" alignItems="center">
-                <img
-                  alt="profile-user"
-                  width="100px"
-                  height="100px"
-                  src={`../../assets/user.png`}
-                  style={{ cursor: "pointer", borderRadius: "50%" }}
-                />
-              </Box> */}
               <Box textAlign="center">
-                <Typography
+                {/* <Typography
                   variant="h2"
                   color={colors.grey[100]}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
                   I.I.I
-                </Typography>
+                </Typography> */}
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  AppManager
+                  {}
                 </Typography>
               </Box>
             </Box>
@@ -126,13 +116,13 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
-            <Typography
+            {/* <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               代理層
-            </Typography>
+            </Typography> */}
             <Item
               title="Manage Team"
               to="/team"
@@ -155,13 +145,13 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
-            <Typography
+            {/* <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               推論層
-            </Typography>
+            </Typography> */}
             <Item
               title="Profile Form"
               to="/form"
@@ -184,13 +174,13 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
-            <Typography
+            {/* <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               SDK 應用層
-            </Typography>
+            </Typography> */}
             <Item
               title="Bar Chart"
               to="/bar"

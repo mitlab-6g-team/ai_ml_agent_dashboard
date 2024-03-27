@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
@@ -18,24 +18,37 @@ import Geography from "./scenes/geography";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
-
+import Login from "./scenes/login";
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
+  const location = useLocation(); // 使用 useLocation Hook 獲取當前路徑信息
 
+  useEffect(() => {
+    // 每當路徑變化時，檢查當前路徑是否為登錄頁面
+    const path = location.pathname;
+    if (path === "/login") {
+      setIsSidebar(false); // 如果是登錄頁面，不顯示側邊欄
+    } else {
+      setIsSidebar(true); // 如果不是登錄頁面，顯示側邊欄
+    }
+  }, [location]);
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <div className="sidebar">
-            <Sidebar isSidebar={isSidebar} />
-          </div>
+          {isSidebar && (
+            <div className="sidebar">
+              <Sidebar />
+            </div>
+          )}
           {/* <Sidebar isSidebar={isSidebar} /> */}
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/login" element={<Login />}></Route>
               <Route path="/result" element={<Dashboard1 />} />
               <Route path="/pipeline" element={<Pipeline />} />
               <Route path="/model" element={<Model />} />
