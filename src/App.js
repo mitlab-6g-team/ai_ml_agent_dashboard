@@ -22,15 +22,18 @@ import Login from "./scenes/login";
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
+  const [showTopbar, setShowTopbar] = useState(true);
   const location = useLocation(); // 使用 useLocation Hook 獲取當前路徑信息
 
   useEffect(() => {
     // 每當路徑變化時，檢查當前路徑是否為登錄頁面
     const path = location.pathname;
     if (path === "/login") {
-      setIsSidebar(false); // 如果是登錄頁面，不顯示側邊欄
+      setIsSidebar(false); // 在登錄頁面不顯示側邊欄
+      setShowTopbar(false); // 在登錄頁面不顯示頂部導航欄
     } else {
-      setIsSidebar(true); // 如果不是登錄頁面，顯示側邊欄
+      setIsSidebar(true);
+      setShowTopbar(true); // 其他頁面顯示頂部導航欄
     }
   }, [location]);
   return (
@@ -45,7 +48,7 @@ function App() {
           )}
           {/* <Sidebar isSidebar={isSidebar} /> */}
           <main className="content">
-            <Topbar setIsSidebar={setIsSidebar} />
+            {showTopbar && <Topbar setIsSidebar={setIsSidebar} />}
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/login" element={<Login />}></Route>

@@ -47,7 +47,11 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container
+        component="main"
+        maxWidth="xs"
+        sx={{ backgroundColor: "#F5F5F5" }}
+      >
         <CssBaseline />
         <Box
           sx={{
