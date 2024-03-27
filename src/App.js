@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
@@ -23,17 +23,17 @@ function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
   const [showTopbar, setShowTopbar] = useState(true);
-  const location = useLocation(); // 使用 useLocation Hook 獲取當前路徑信息
-
+  const location = useLocation();
+  // const isLoggedIn = localStorage.getItem("isLoggedIn");
   useEffect(() => {
-    // 每當路徑變化時，檢查當前路徑是否為登錄頁面
+
     const path = location.pathname;
     if (path === "/login") {
-      setIsSidebar(false); // 在登錄頁面不顯示側邊欄
-      setShowTopbar(false); // 在登錄頁面不顯示頂部導航欄
+      setIsSidebar(false);
+      setShowTopbar(false);
     } else {
       setIsSidebar(true);
-      setShowTopbar(true); // 其他頁面顯示頂部導航欄
+      setShowTopbar(true);
     }
   }, [location]);
   return (
@@ -50,7 +50,7 @@ function App() {
           <main className="content">
             {showTopbar && <Topbar setIsSidebar={setIsSidebar} />}
             <Routes>
-              <Route path="/" element={<Dashboard />} />
+              <Route path="/" element={localStorage.getItem("isLoggedIn") ? <Dashboard /> : <Navigate replace to="/login" />} />
               <Route path="/login" element={<Login />}></Route>
               <Route path="/result" element={<Dashboard1 />} />
               <Route path="/pipeline" element={<Pipeline />} />
