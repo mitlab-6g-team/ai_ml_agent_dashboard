@@ -21,6 +21,7 @@ const Dashboard = () => {
   // const { application_uid } = location.state || {};
 
   const dispatch = useDispatch();
+
   const {
     result: { register, unregister },
     status,
