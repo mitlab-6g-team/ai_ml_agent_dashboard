@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import RequireAuth from "./scenes/requireAuth";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
@@ -24,9 +25,8 @@ function App() {
   const [isSidebar, setIsSidebar] = useState(true);
   const [showTopbar, setShowTopbar] = useState(true);
   const location = useLocation();
-  // const isLoggedIn = localStorage.getItem("isLoggedIn");
-  useEffect(() => {
 
+  useEffect(() => {
     const path = location.pathname;
     if (path === "/login") {
       setIsSidebar(false);
@@ -49,22 +49,121 @@ function App() {
           {/* <Sidebar isSidebar={isSidebar} /> */}
           <main className="content">
             {showTopbar && <Topbar setIsSidebar={setIsSidebar} />}
+
             <Routes>
-              <Route path="/" element={localStorage.getItem("isLoggedIn") ? <Dashboard /> : <Navigate replace to="/login" />} />
               <Route path="/login" element={<Login />}></Route>
-              <Route path="/result" element={<Dashboard1 />} />
-              <Route path="/pipeline" element={<Pipeline />} />
-              <Route path="/model" element={<Model />} />
-              <Route path="/team" element={<Team />} />
-              <Route path="/contacts" element={<Contacts />} />
-              <Route path="/invoices" element={<Invoices />} />
-              <Route path="/form" element={<Form />} />
-              <Route path="/bar" element={<Bar />} />
-              <Route path="/pie" element={<Pie />} />
-              <Route path="/line" element={<Line />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/calendar" element={<Calendar />} />
-              <Route path="/geography" element={<Geography />} />
+              <Route
+                path="/"
+                element={
+                  <RequireAuth>
+                    <Dashboard />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/result"
+                element={
+                  <RequireAuth>
+                    <Dashboard1 />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/pipeline"
+                element={
+                  <RequireAuth>
+                    <Pipeline />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/model"
+                element={
+                  <RequireAuth>
+                    <Model />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/team"
+                element={
+                  <RequireAuth>
+                    <Team />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/contacts"
+                element={
+                  <RequireAuth>
+                    <Contacts />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/invoices"
+                element={
+                  <RequireAuth>
+                    <Invoices />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/form"
+                element={
+                  <RequireAuth>
+                    <Form />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/bar"
+                element={
+                  <RequireAuth>
+                    <Bar />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/pie"
+                element={
+                  <RequireAuth>
+                    <Pie />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/line"
+                element={
+                  <RequireAuth>
+                    <Line />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/faq"
+                element={
+                  <RequireAuth>
+                    <FAQ />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/calendar"
+                element={
+                  <RequireAuth>
+                    <Calendar />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/geography"
+                element={
+                  <RequireAuth>
+                    <Geography />
+                  </RequireAuth>
+                }
+              />
             </Routes>
           </main>
         </div>

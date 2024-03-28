@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -22,6 +22,7 @@ const defaultTheme = createTheme();
 export default function SignIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [rememberMe, setRememberMe] = useState(false);
   const { isLoggedIn, role, status } = useSelector((state) => state.login);
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -30,14 +31,16 @@ export default function SignIn() {
       login({
         roleName: data.get("email"),
         password: data.get("password"),
+        rememberMe: rememberMe,
       })
     );
   };
   useEffect(() => {
+    console.log(isLoggedIn);
     if (isLoggedIn === true) {
       navigate("/");
     }
-  }, [navigate, isLoggedIn]);
+  }, [isLoggedIn]);
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container
@@ -112,7 +115,13 @@ export default function SignIn() {
                   }
                 />
                 <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
+                  control={
+                    <Checkbox
+                      value="remember"
+                      color="primary"
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                    />
+                  }
                   label="Remember me"
                 />
                 <Button

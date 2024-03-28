@@ -3,7 +3,7 @@ import { Box, IconButton, useTheme, Typography } from "@mui/material";
 import { tokens } from "../../theme";
 import { logout } from "../../redux/loginSlice"; // 確保路徑正確
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import InputBase from "@mui/material/InputBase";
 // import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -19,7 +19,9 @@ const Topbar = () => {
   const navigate = useNavigate();
   const colors = tokens(theme.palette.mode);
   // const colorMode = useContext(ColorModeContext);
-  const role = localStorage.getItem("role");
+  const role_localstorage = localStorage.getItem("role");
+  const { role: roleRedux } = useSelector((state) => state.login);
+  const role = roleRedux || role_localstorage;
   const handleLogout = () => {
     dispatch(logout());
     navigate("/login"); // 重定向到登入頁面

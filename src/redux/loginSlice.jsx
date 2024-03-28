@@ -1,18 +1,18 @@
-// src/features/login/loginSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-// 模擬 API 請求
 export const login = createAsyncThunk(
   "login/userLogin",
-  async ({ roleName, password }, { rejectWithValue }) => {
-    // 模擬 API 請求的等待
+  async ({ roleName, password, rememberMe }, { rejectWithValue }) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // 這裡模擬 API 響應
     if (roleName === "test" && password === "test12345") {
-      return { isLoggedIn: true, role: "Application Business Manager" };
+      return {
+        isLoggedIn: true,
+        role: "Application Business Manager",
+        rememberMe,
+      };
     } else if (roleName === "mitlab" && password === "mitlab12345") {
-      return { isLoggedIn: true, role: "Inference Host Manager" };
+      return { isLoggedIn: true, role: "Inference Host Manager", rememberMe };
     } else {
       return rejectWithValue("Login failed");
     }
@@ -22,7 +22,7 @@ export const login = createAsyncThunk(
 const initialState = {
   isLoggedIn: false,
   role: "",
-  status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
+  status: "idle",
   error: null,
 };
 
@@ -48,8 +48,10 @@ export const loginSlice = createSlice({
         state.isLoggedIn = action.payload.isLoggedIn;
         state.role = action.payload.role;
         state.status = "succeeded";
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("role", action.payload.role);
+        if (action.payload.rememberMe) {
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("role", action.payload.role);
+        }
       })
       .addCase(login.rejected, (state, action) => {
         state.status = "failed";
